@@ -9,50 +9,44 @@ const webAppURL = 'https://vermillion-cobbler-e75220.netlify.app';
 
 const bot = new TelegramBot(token, {polling: true});
 const app = express();
-app.use(cors());
-app.use(express.json());
 
+app.use(express.json());
+app.use(cors());
 
 bot.on('message', async (msg) => {
-  const chatId = msg.chat.id;
-  const text = msg.text;
+    const chatId = msg.chat.id;
+    const text = msg.text;
 
-  console.log(msg);
+    if(text === '/start') {
 
-  if(text === '/start') {
-      await bot.sendMessage(chatId, 'Приветствие', {
-          reply_markup: {
-              inline_keyboard: [
-                  [{'text': 'Сайт', web_app: {url: webAppURL}}]
-              ]
-          }
-      })
-  }
+        await bot.sendMessage(chatId, 'Заходи в наш интернет магазин по кнопке ниже', {
+            reply_markup: {
+                inline_keyboard: [
+                    [{text: 'Сделать заказ', web_app: {url: webAppUrl}}]
+                ]
+            }
+        })
+    }
+
 });
 
 app.post('/web-data', async (req, res) => {
-    const {queryId, products, totalPrice} = req.body;
-
+    const {queryId, products = [], totalPrice} = req.body;
     try {
-        await  bot.answerWebAppQuery(queryId, {
-            type:'article',
-            query_id: queryId,
-            title:'Успешная покупка',
-            input_message_content:{massage_text:totalPrice}
-        });
+        await bot.answerWebAppQuery(queryId, {
+            type: 'article',
+            id: queryId,
+            title: 'Успешная покупка',
+            input_message_content: {
+                message_text: ` Поздравляю с покупкой, вы приобрели товар на сумму ${totalPrice}, ${products.map(item => item.title).join(', ')}`
+            }
+        })
         return res.status(200).json({});
-    }catch(err) {
-        await  bot.answerWebAppQuery(queryId, {
-            type:'article',
-            query_id: queryId,
-            title:'Что то пошло не так',
-            input_message_content:{massage_text:'Что то пошло не так'}
-        });
-        return res.status(500).json({});
+    } catch (e) {
+        return res.status(500).json({})
     }
-
-
 })
 
-const port =  8000;
-app.listen(port, () => console.log(`Listening on port ${port}`));
+const PORT = 8000;
+
+app.listen(PORT, () => console.log('server started on PORT ' + PORT))
