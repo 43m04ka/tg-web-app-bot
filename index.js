@@ -39,16 +39,16 @@ app.post('/web-data', async (req, res) => {
             query_id: queryId,
             title:'Успешная покупка',
             input_message_content:{massage_text:totalPrice}
-        })
-        return res.status(200).json({})
+        });
+        return res.status(200).json({});
     }catch(err) {
         await  bot.answerWebAppQuery(queryId, {
             type:'article',
             query_id: queryId,
             title:'Что то пошло не так',
             input_message_content:{massage_text:'Что то пошло не так'}
-        })
-        return res.status(500).json({})
+        });
+        return res.status(500).json({});
     }
 
 
