@@ -28,17 +28,17 @@ bot.on('message', async (msg) => {
             }
         })
     }
-    // if(msg?.web_app_data?.data) {
-    //     try {
-    //         const data = JSON.parse(msg?.web_app_data?.data)
-    //         console.log(data)
-    //         setTimeout(async () => {
-    //             await bot.sendMessage(chatId, 'Всю информацию вы получите в этом чате');
-    //         }, 3000)
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }
+    if(msg?.web_app_data?.data) {
+        try {
+            const data = JSON.parse(msg?.web_app_data?.data)
+            console.log(data)
+            setTimeout(async () => {
+                await bot.sendMessage(chatId, 'Всю информацию вы получите в этом чате');
+            }, 3000)
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
 });
 
