@@ -5,7 +5,7 @@ const {query} = require("express");
 
 
 const token = '7989552745:AAFt44LwqIMbiq75yp86zEgSJMpNxb_8BWA';
-const webAppURL = 'https://vermillion-cobbler-e75220.netlify.app';
+const webAppURL  = 'https://vermillion-cobbler-e75220.netlify.app';
 
 const bot = new TelegramBot(token, {polling: true});
 const app = express();
