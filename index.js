@@ -13,6 +13,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+const urlencodedParser = express.urlencoded({extended: false});
+
 bot.on('message', async (msg) => {
     const chatId = msg.chat.id;
     const text = msg.text;
@@ -38,7 +40,7 @@ bot.on('message', async (msg) => {
 //
 // app.use(cors(corsOptions))
 
-app.post('/web-data', async (req, res) => {
+app.post('/web-data',urlencodedParser, async (req, res) => {
     const {queryId, products = [], totalPrice} = req.body;
     try {
         await bot.answerWebAppQuery(queryId, {
