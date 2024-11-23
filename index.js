@@ -30,6 +30,14 @@ bot.on('message', async (msg) => {
 
 });
 
+const corsOptions ={
+    origin:'*',
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions))
+
 app.post('/web-data', async (req, res) => {
     try{
     const {queryId, products = [], totalPrice} = req.body;
