@@ -23,11 +23,22 @@ bot.on('message', async (msg) => {
 
         await bot.sendMessage(chatId, 'Заходи в наш интернет магазин по кнопке ниже', {
             reply_markup: {
-                inline_keyboard: [
+                keyboard: [
                     [{text: 'Сделать заказ', web_app: {url: webAppURL}}]
                 ]
             }
         })
+    }
+    if(msg?.web_app_data?.data) {
+        try {
+            const data = JSON.parse(msg?.web_app_data?.data)
+            console.log(data)
+            setTimeout(async () => {
+                await bot.sendMessage(chatId, 'Всю информацию вы получите в этом чате');
+            }, 3000)
+        } catch (e) {
+            console.log(e);
+        }
     }
 
 });
