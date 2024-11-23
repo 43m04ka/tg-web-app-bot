@@ -1,7 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
 const cors = require('cors');
-const {query} = require("express");
 
 
 const token = '7989552745:AAFt44LwqIMbiq75yp86zEgSJMpNxb_8BWA';
@@ -34,6 +33,7 @@ bot.on('message', async (msg) => {
             console.log(data)
             setTimeout(async () => {
                 await bot.sendMessage(chatId, 'Всю информацию вы получите в этом чате');
+                await bot.sendMessage(5106439090, "что от купили")
             }, 3000)
         } catch (e) {
             console.log(e);
