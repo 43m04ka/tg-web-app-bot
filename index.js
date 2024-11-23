@@ -40,7 +40,7 @@ bot.on('message', async (msg) => {
 //
 // app.use(cors(corsOptions))
 
-app.post('/web-data',urlencodedParser, async (req, res) => {
+app.post('/web-data', async (req, res) => {
     const {queryId, products = [], totalPrice} = req.body;
     try {
         await bot.answerWebAppQuery(queryId, {
@@ -53,9 +53,10 @@ app.post('/web-data',urlencodedParser, async (req, res) => {
         })
         return res.status(200).json({});
     } catch (e) {
-        return res.status(501).json({})
+        return res.status(500).json({'12':'34'})
     }
 })
+
 
 const PORT = 8000;
 
